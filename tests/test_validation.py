@@ -26,6 +26,24 @@ class ScenarioTests(unittest.TestCase):
 
 
 class EvidenceGateTests(unittest.TestCase):
+    def test_explicit_incident_id_requires_exact_lookup(self):
+        incident_id = 'totally-not-a-real-id'
+        fake = FakeProvider([
+            tool_call('1', 'get_status', '{"provider":"cloudflare"}'),
+            final('Không thấy mã trong danh sách.'),
+            tool_call('2', 'get_incident_details', json.dumps({
+                'provider': 'cloudflare', 'incident_id': incident_id})),
+            final('Không tìm thấy ID trong 50 incident gần nhất; vui lòng cung cấp mã hoặc thời gian đúng.'),
+        ])
+        result = run_agent(f'Incident có mã {incident_id} có thật không?',
+                           fake, StatusTools(), max_steps=4)
+        self.assertEqual(result['status'], 'completed')
+        self.assertEqual([x['name'] for x in result['trace'] if x['event'] == 'tool'],
+                         ['get_status', 'get_incident_details'])
+        self.assertTrue(any(x['event'] == 'validation_missing_incident_lookup'
+                            for x in result['trace']))
+        self.assertEqual(result['trace'][-2]['result']['error'], 'INCIDENT_NOT_FOUND')
+
     def test_missing_url_gets_revision_within_budget(self):
         url = 'https://stspg.io/pjgptg3cfc6n'
         fake = FakeProvider([tool_call('1', 'get_incident_details', '{"provider":"github","incident_id":"xr3myzj7ms51"}'),
