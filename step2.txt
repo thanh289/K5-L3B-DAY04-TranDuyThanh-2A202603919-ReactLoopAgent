@@ -1,0 +1,65 @@
+(.venv) PS D:\VinUni-AI20k\Day 4\K5-L3B-DAY04-TranDuyThanh-2A202603919-ReactLoopAgent> python -m unittest discover -s tests -v
+
+test_bonus_points_only_for_full_run (test_bonus.BonusRunnerTests.test_bonus_points_only_for_full_run) ... ok
+test_main_dataset_remains_independent (test_bonus.BonusRunnerTests.test_main_dataset_remains_independent) ... ok
+test_bad_arguments_do_not_crash (test_bonus.BonusToolsTests.test_bad_arguments_do_not_crash) ... ok
+test_five_distinct_apis_and_six_tools (test_bonus.BonusToolsTests.test_five_distinct_apis_and_six_tools) ... ok
+test_format_once_and_context_noise (test_bonus.BonusToolsTests.test_format_once_and_context_noise) ... ok
+test_live_http_429_is_not_an_outage (test_bonus.BonusToolsTests.test_live_http_429_is_not_an_outage) ... ok
+test_min_max_calls_and_bonus_conversion (test_bonus.BonusToolsTests.test_min_max_calls_and_bonus_conversion) ... ok
+test_pagination_preserves_timeline (test_bonus.BonusToolsTests.test_pagination_preserves_timeline) ... ok
+test_transient_and_persistent_429 (test_bonus.BonusToolsTests.test_transient_and_persistent_429) ... ok
+test_invalid_agent_result_is_unscored (test_grading.EvalIsolationTests.test_invalid_agent_result_is_unscored) ... ok
+test_runner_does_not_give_expected_to_agent (test_grading.EvalIsolationTests.test_runner_does_not_give_expected_to_agent) ...ok
+test_empty_judge_response_is_unscored (test_grading.GradingTests.test_empty_judge_response_is_unscored) ... ok
+test_infrastructure_error_unscored_but_max_steps_zero (test_grading.GradingTests.test_infrastructure_error_unscored_but_max_steps_zero) ... ok
+test_injection_marker_caps_score (test_grading.GradingTests.test_injection_marker_caps_score) ... ok
+test_invalid_judge_response_unscored (test_grading.GradingTests.test_invalid_judge_response_unscored) ... ok
+test_missing_judge_input_is_not_sent_to_agent (test_grading.GradingTests.test_missing_judge_input_is_not_sent_to_agent) ... ok
+test_missing_tool_caps_score (test_grading.GradingTests.test_missing_tool_caps_score) ... ok
+test_noisy_status_and_injection (test_grading.GradingTests.test_noisy_status_and_injection) ... ok
+test_partial_average_is_not_final (test_grading.GradingTests.test_partial_average_is_not_final) ... ok
+test_score_sum_and_weighting (test_grading.GradingTests.test_score_sum_and_weighting) ... ok
+test_all_provider_adapters_form_requests_without_keys_leaking (test_lab.FullTrajectoryTests.test_all_provider_adapters_form_requests_without_keys_leaking) ... ok
+test_two_tools_and_final_with_real_snapshot (test_lab.FullTrajectoryTests.test_two_tools_and_final_with_real_snapshot) ... ok
+test_invalid_json_sent_back_to_model (test_lab.LoopTests.test_invalid_json_sent_back_to_model) ... ok
+test_max_steps (test_lab.LoopTests.test_max_steps) ... ok
+test_model_truncation_is_not_completed (test_lab.LoopTests.test_model_truncation_is_not_completed) ... ok
+test_multiple_tool_calls (test_lab.LoopTests.test_multiple_tool_calls) ... ok
+test_tool_result_is_returned_with_id (test_lab.LoopTests.test_tool_result_is_returned_with_id) ... ok
+test_anthropic_groups_results (test_lab.ProviderTests.test_anthropic_groups_results) ... ok
+test_components_empty_search_uses_title (test_lab.ToolsTests.test_components_empty_search_uses_title) ... ok
+test_errors_are_observations (test_lab.ToolsTests.test_errors_are_observations) ... ok
+test_fedramp_scope_present (test_lab.ToolsTests.test_fedramp_scope_present) ... ok
+test_status_filters_and_resolved (test_lab.ToolsTests.test_status_filters_and_resolved) ... ok
+test_failed_tool_does_not_require_source (test_validation.EvidenceGateTests.test_failed_tool_does_not_require_source) ... ok
+test_missing_url_at_budget_limit_is_not_completed (test_validation.EvidenceGateTests.test_missing_url_at_budget_limit_is_not_completed) ... FAIL
+test_missing_url_gets_revision_within_budget (test_validation.EvidenceGateTests.test_missing_url_gets_revision_within_budget)... FAIL
+test_injection_is_scoped_to_evaluation (test_validation.ScenarioTests.test_injection_is_scoped_to_evaluation) ... ok
+test_partial_timeout_does_not_affect_github (test_validation.ScenarioTests.test_partial_timeout_does_not_affect_github) ... ok
+
+======================================================================
+FAIL: test_missing_url_at_budget_limit_is_not_completed (test_validation.EvidenceGateTests.test_missing_url_at_budget_limit_is_not_completed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\VinUni-AI20k\Day 4\K5-L3B-DAY04-TranDuyThanh-2A202603919-ReactLoopAgent\tests\test_validation.py", line 39, in test_missing_url_at_budget_limit_is_not_completed
+    self.assertEqual(run_agent('x', fake, StatusTools(), max_steps=2)['status'], 'max_steps')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'completed' != 'max_steps'
+- completed
++ max_steps
+
+
+======================================================================
+FAIL: test_missing_url_gets_revision_within_budget (test_validation.EvidenceGateTests.test_missing_url_gets_revision_within_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\VinUni-AI20k\Day 4\K5-L3B-DAY04-TranDuyThanh-2A202603919-ReactLoopAgent\tests\test_validation.py", line 35, in test_missing_url_gets_revision_within_budget
+    self.assertIn(url, result['answer'])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'https://stspg.io/pjgptg3cfc6n' not found in 'Incident đã xử lý.'
+
+----------------------------------------------------------------------
+Ran 37 tests in 0.184s
+
+FAILED (failures=2)

@@ -45,6 +45,9 @@ class Provider:
         if self.name == 'anthropic':
             return self._anthropic(messages, schemas)
         payload = {'model': self.model, 'messages': messages}
+        if self.name == 'openai' and self.model == 'gpt-6-luna':
+            # Chat Completions tool calling requires non-reasoning mode for Luna.
+            payload['reasoning_effort'] = 'none'
         if schemas:
             payload['tools'] = schemas
         data = post_json(self.url, {'Authorization': f'Bearer {self.key}'}, payload)
